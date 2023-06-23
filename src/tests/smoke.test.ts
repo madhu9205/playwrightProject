@@ -1,4 +1,4 @@
-import {chromium, Page} from "@playwright/test";
+import {chromium, expect, Page} from "@playwright/test";
 import { hrmLoginPage } from "../pages/hrmLoginPage";
 import { test } from "../fixtures/pageFixtures";
 import { hrmHomepage } from "../pages/hrmHomepage";
@@ -9,6 +9,7 @@ test.describe('SMOKE',async () => {
         await page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
         await hrmLoginPage.loginToHrmApplication(VALID_LOGINS);
         await hrmHomepage.verifyHomepage();
+        expect(await page.title()).toBe("OrangeHRM")
     })
 
     test('2. Invalid Login', async ({page, hrmLoginPage, hrmHomepage }) => {
