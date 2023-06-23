@@ -1,0 +1,13 @@
+{
+      "VALID_LOGINS": {
+        "username" : "Admin",
+        "password" : "admin123"
+
+      },
+      
+      "INVALID_LOGINS": {
+        "username" : "Admin",
+        "password" : "f457"
+
+      }
+}

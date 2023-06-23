@@ -13,6 +13,7 @@ export class hrmLoginPage {
     private passwordInput = '//*[@id="app"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[2]/div/div[2]/input';
     private loginButton = '//*[@id="app"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[3]/button';
     private forgotPasswordLink = '//*[@id="app"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[4]/p';
+    private invalidPasswordvalidationMessage = '//*[@id="app"]/div[1]/div/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/p';
 
     constructor(page: Page) {
         this.page= page;
@@ -23,15 +24,15 @@ export class hrmLoginPage {
         await expect(HEADING).toHaveText('Login',{timeout:70000});    
     }
 
-    private async enterUsername(){
+    private async enterUsername(json){
         await this.page.waitForSelector(this.usernameInput);
-        await this.page.fill(this.usernameInput, "Admin");
+        await this.page.fill(this.usernameInput, json.username);
         console.log("Username filled");
     }
 
-    private async enterPassword(){
+    private async enterPassword(json){
         await this.page.waitForSelector(this.passwordInput);
-        await this.page.fill(this.passwordInput, "admin123");
+        await this.page.fill(this.passwordInput, json.password);
         console.log("Password filled");
     }
 
@@ -43,11 +44,21 @@ export class hrmLoginPage {
         console.log ("Login button clicked")
     }
 
+    private async validateInavalidPasswordError() {
+        const ERROR = this.page.locator(this.invalidPasswordvalidationMessage);
+        await expect(ERROR).toHaveText('Invalid credentials',{timeout:70000}); 
+
+    }
+
     //Composite test methods
-    async loginToHrmApplication() {
+    async loginToHrmApplication(json) {
         await this.verifyLoginPage();
-        await this.enterUsername();
-        await this.enterPassword();
+        await this.enterUsername(json);
+        await this.enterPassword(json); 
         await this.clickLoginButton();
+    }
+
+    async verifyInvalidPasswordError() {
+        await this.validateInavalidPasswordError();
     }
 }
