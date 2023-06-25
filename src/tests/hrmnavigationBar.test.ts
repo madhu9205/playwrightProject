@@ -12,7 +12,5 @@ test.describe('Navigation',async () => {
         await hrmHomepage.verifyHomepage();
         await hrmNavigationbar.loginToHrmAdminview();
         await hrmNavigationbar.verifyAdminpage();
-    })
-
-    
+    }) 
 })

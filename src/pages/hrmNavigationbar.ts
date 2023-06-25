@@ -28,7 +28,6 @@ export class hrmNavigationbar {
         const ADMINHEADING = this.page.locator(this.adminpageheader);
         await expect(ADMINHEADING).toHaveText('Admin',{timeout:70000});        
     }
-
     //Composite test methods
     async verifyAdminpage() {
         await this.verifyAdminpageHeading();

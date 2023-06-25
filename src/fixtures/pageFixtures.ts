@@ -11,7 +11,7 @@ type page = {
 
 const MY_PAGE = baseTest.extend({
     testPage: async ({ }, use) => {
-        await use(page => page = page );
+        await use(page => page = page);
     }
 });
 
@@ -25,8 +25,6 @@ const TEST_PAGES = baseTest.extend<page>({
     hrmNavigationbar: async ({page},use)=> {
         await use (new hrmNavigationbar(page));
     }
-    
-
 });
 export const test = TEST_PAGES;
 export { expect, Page } from '@playwright/test';
