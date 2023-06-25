@@ -19,5 +19,4 @@ export class hrmHomepage {
     async verifyHomepage() {
         await this.verifyHomepageHeading();
     }
-
 }
