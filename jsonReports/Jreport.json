@@ -1,0 +1,227 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\amal.wijewardane_exa\\Desktop\\playwrightProject\\playwright.config.ts",
+    "rootDir": "C:/Users/amal.wijewardane_exa/Desktop/playwrightProject",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "totalTime": 32672.172000050545
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "dot",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "jsonReports/Jreport.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "open": "always"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 15000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Users/amal.wijewardane_exa/Desktop/playwrightProject/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/amal.wijewardane_exa/Desktop/playwrightProject",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "version": "1.35.1",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "src\\tests\\hrmnavigationBar.test.ts",
+      "file": "src/tests/hrmnavigationBar.test.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Navigation",
+          "file": "src/tests/hrmnavigationBar.test.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "1. Admin Button",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 23175,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Username filled\n"
+                        },
+                        {
+                          "text": "Password filled\n"
+                        },
+                        {
+                          "text": "Login button clicked\n"
+                        },
+                        {
+                          "text": "Admin button clicked\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-06-25T06:05:24.243Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b623dd463c09e7021e21-43de2d2544a890ea3b30",
+              "file": "src/tests/hrmnavigationBar.test.ts",
+              "line": 9,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "src\\tests\\smoke.test.ts",
+      "file": "src/tests/smoke.test.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "SMOKE",
+          "file": "src/tests/smoke.test.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "1. Valid Login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 21564,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Username filled\n"
+                        },
+                        {
+                          "text": "Password filled\n"
+                        },
+                        {
+                          "text": "Login button clicked\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-06-25T06:05:24.239Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a2bded171a513ee5e921-5dca1d4b974c38e070f3",
+              "file": "src/tests/smoke.test.ts",
+              "line": 8,
+              "column": 9
+            },
+            {
+              "title": "2. Invalid Login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 9736,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Username filled\n"
+                        },
+                        {
+                          "text": "Password filled\n"
+                        },
+                        {
+                          "text": "Login button clicked\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-06-25T06:05:46.512Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a2bded171a513ee5e921-c0b72172957c8097fed3",
+              "file": "src/tests/smoke.test.ts",
+              "line": 15,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

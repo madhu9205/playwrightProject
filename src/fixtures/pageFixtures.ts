@@ -1,10 +1,12 @@
 import {test as baseTest } from "@playwright/test";
 import { hrmLoginPage } from "../pages/hrmLoginPage";
 import { hrmHomepage } from "../pages/hrmHomepage";
+import { hrmNavigationbar } from "../pages/hrmNavigationbar";
 
 type page = {
     hrmLoginPage: hrmLoginPage;
-    hrmHomepage: hrmHomepage
+    hrmHomepage: hrmHomepage;
+    hrmNavigationbar: hrmNavigationbar;
 }
 
 const MY_PAGE = baseTest.extend({
@@ -19,8 +21,10 @@ const TEST_PAGES = baseTest.extend<page>({
     },
     hrmHomepage: async ({ page}, use) => {
         await use(new hrmHomepage(page));
+    },
+    hrmNavigationbar: async ({page},use)=> {
+        await use (new hrmNavigationbar(page));
     }
-
 });
 export const test = TEST_PAGES;
 export { expect, Page } from '@playwright/test';
