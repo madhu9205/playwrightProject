@@ -6,6 +6,9 @@ const config: PlaywrightTestConfig ={
       
         headless:false
       },
+      reporter: [["dot"],["json",{
+        outputFile:"jsonReports/Jreport.json"
+      }],["html",{open:"always"}]] 
   
 }
 export default config;
