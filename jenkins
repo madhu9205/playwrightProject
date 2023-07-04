@@ -1,0 +1,155 @@
+podTemplate(yaml: '''
+apiVersion: v1
+kind: Pod
+metadate:
+ name: playwright
+ label:
+  name: playwright  
+spec:
+  serviceAccountName: figaro-agent
+  containers:
+  - name: playwright
+    image: mcr.microsoft.com/playwright:v1.25.0-focal
+    imagePullPolicy: Always
+    command:
+    - sleep
+    args:
+    - infinity
+    volumeMounts:
+    - name: docker-config
+      mountPath: /root/.docker
+  - name: python
+    image: python:3.10.0-alpine
+    imagePullPolicy: Always
+    command:
+    - sleep
+    args:
+    - infinity
+    volumeMounts:
+    - name: docker-config
+      mountPath: /root/.docker
+  - name: helm
+    image: alpine/helm:latest
+    command:
+    - cat
+    tty: true
+  - name: alpine
+    image: alpine
+    command:
+    - cat
+    tty: true
+ 
+  volumes:
+    - name: docker-config
+      configMap:
+        name: docker-config
+ 
+''')
+{
+           // Build Properties should set as maps of key values
+    def buildProperties = [
+            ['jenkins', 'Dockerfile']
+        ]
+    def ecrRepo = "512329329925.dkr.ecr.us-east-1.amazonaws.com/mozart/base-images"
+    try {
+        for (build in buildProperties) {
+            buildProject(build[0], build[1], ecrRepo)
+        }
+    }catch(Exception e) {
+        currentBuild.result = 'FAILURE'
+        throw e
+    }
+}
+def buildProject(String projectName, String dockerFile, String ecrRepo) {
+    try {
+        node(POD_LABEL) {
+            def PROJECT_NAME = projectName.trim()
+            def GIT_COMMIT_HASH = ""
+            def DOCKER_FILE = dockerFile.trim()
+            def IMAGE_NAME = PROJECT_NAME
+            def ECR_REPO = ecrRepo.trim()
+            // To build same folder different docker files.
+            if(DOCKER_FILE.contains(".")){
+                IMAGE_NAME = DOCKER_FILE.split("\\.")[0]
+            }
+            STAGE = "Checkout " + IMAGE_NAME
+            stage(STAGE) {
+                echo "***************************** Checking out branch from wiley-edge-qa-automation Git Repository *****************************"
+                git branch: 'feature/EB-4196', credentialsId: 'mu-git-key', url: 'git@github.com:wiley/wiley-edge-qa-automation.git'
+                GIT_COMMIT_HASH = sh (script: "git rev-parse --short=10 HEAD", returnStdout: true)
+            }
+            STAGE = "Build " + IMAGE_NAME
+            stage(STAGE) {
+              echo "***************************** Installing Playwright *****************************"
+                dir(PROJECT_NAME) {
+                    container('playwright') {
+                       sh 'npm install'
+                       sh 'npx playwright install'
+                       sh 'npx playwright -V'
+                       sh 'npm i -D allure-playwright'
+                       sh 'npm i -D allure-commandline'
+                    }
+                }
+            }
+           try{
+             STAGE = "Test"
+            stage(STAGE) {
+                container('playwright') { 
+                  echo "**************************************************** WILEY EDGE AUTOMATIC TEST |FULL SANDBOX| - Regression Suite - Daily Execution ****************************************************"                     
+                  sh 'npx playwright test --grep "(@edgeRegression.*@fullSandbox.*@testCases)"'
+                    }                    
+            }
+           }catch(e){
+                currentBuild.result = 'FAILURE'                
+           } 
+            stage('Report Generation') {
+                    allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
+            }
+            STAGE = "TestRail Update"
+            stage(STAGE) {
+                dir(PROJECT_NAME) {
+                    container('python') {
+                      echo "**************************************************** WILEY EDGE AUTOMATIC TEST |FULL SANDBOX| - Regression Test - TestRail Update ****************************************************"                                               
+                            sh 'python --version'                       
+                            sh 'pip --version' 
+                            sh 'pip install trcli'   
+                            echo "***************************************************** List Test results in the location *****************************************************"
+                            sh 'ls /home/jenkins/agent/workspace/Wiley_EDGE_Automation_Feature_Test_Job_Regression/test-results'          
+                            echo "***************************************************** Upload Results to TestRail *****************************************************"
+                            sh """
+                            # Install TestRail CLI and upload test results
+                            trcli -y \
+                            -h "https://wiley.testrail.net" \
+                            -u "adeegoda@wiley.com" \
+                            -p "Anjana@321" \
+                            --project "Employment Bridge (EB)" \
+                            -n "--no" \
+                            parse_junit \
+                            --title "Playwright Automated Test Run" \
+                            --case-matcher "property" \
+                            --suite-id "10553" \
+                            --run-id "60905" \
+                            -f '/home/jenkins/agent/workspace/Wiley_EDGE_Automation_Feature_Test_Job_Regression/test-results/junit-report.xml'
+    """
+                    }
+                }
+            } 
+        try{
+             STAGE = "TestData Cleanup"
+            stage(STAGE) {
+                container('playwright') {
+                  echo "***************************************************** List Test results in the location *****************************************************"
+                  sh 'ls /home/jenkins/agent/workspace/Wiley_EDGE_Automation_Feature_Test_Job_Regression/test-results' 
+                  echo "**************************************************** WILEY EDGE AUTOMATIC TEST |FULL SANDBOX| - Regression Test - Test Data Cleanup ****************************************************"
+                  sh 'npx playwright test --grep "(@edgeSmoke.*@testDataCleanup.*@fullSandbox)" --reporter=line'
+                    }                    
+            }
+           }catch(e){
+                currentBuild.result = 'FAILURE'                
+           }  
+        }
+    }catch(Exception e) {
+        currentBuild.result = 'FAILURE'
+        throw e
+    }  
+}
