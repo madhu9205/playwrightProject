@@ -11,7 +11,7 @@ const config: PlaywrightTestConfig ={
       reporter: [["dot"],["json",{
         outputFile:"jsonReports/Jreport.json"
       }],["html",{open:"always"}]] ,
-      timeout: 30000
+      timeout: 60000
      
       
 }

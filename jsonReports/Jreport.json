@@ -1,7 +1,7 @@
 {
   "config": {
-    "configFile": "c:\\Users\\amal.wijewardane_exa\\Desktop\\playwrightProject\\playwright.config.ts",
-    "rootDir": "c:/Users/amal.wijewardane_exa/Desktop/playwrightProject",
+    "configFile": "C:\\Users\\amal.wijewardane_exa\\Desktop\\playwrightProject\\playwright.config.ts",
+    "rootDir": "C:/Users/amal.wijewardane_exa/Desktop/playwrightProject",
     "forbidOnly": false,
     "fullyParallel": false,
     "globalSetup": null,
@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "totalTime": 14263.456000000238
+      "totalTime": 32888.59200000763
     },
     "preserveOutput": "always",
     "reporter": [
@@ -39,17 +39,17 @@
     "quiet": false,
     "projects": [
       {
-        "outputDir": "c:/Users/amal.wijewardane_exa/Desktop/playwrightProject/test-results",
+        "outputDir": "C:/Users/amal.wijewardane_exa/Desktop/playwrightProject/test-results",
         "repeatEach": 1,
         "retries": 0,
         "id": "",
         "name": "",
-        "testDir": "c:/Users/amal.wijewardane_exa/Desktop/playwrightProject",
+        "testDir": "C:/Users/amal.wijewardane_exa/Desktop/playwrightProject",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
-        "timeout": 30000
+        "timeout": 0
       }
     ],
     "shard": null,
@@ -73,12 +73,12 @@
           "column": 6,
           "specs": [
             {
-              "title": "2. Search Button",
+              "title": "4. Pay Grade",
               "ok": true,
               "tags": [],
               "tests": [
                 {
-                  "timeout": 30000,
+                  "timeout": 0,
                   "annotations": [],
                   "expectedStatus": "passed",
                   "projectId": "",
@@ -87,7 +87,7 @@
                     {
                       "workerIndex": 0,
                       "status": "passed",
-                      "duration": 12593,
+                      "duration": 31349,
                       "errors": [],
                       "stdout": [
                         {
@@ -116,20 +116,32 @@
                         },
                         {
                           "text": "Search Button clicked\n"
+                        },
+                        {
+                          "text": "PayGrade picked\n"
+                        },
+                        {
+                          "text": "button clicked\n"
+                        },
+                        {
+                          "text": "payName filled\n"
+                        },
+                        {
+                          "text": "PayGrade Button clicked\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2023-07-05T05:08:30.302Z",
+                      "startTime": "2023-07-20T15:59:55.624Z",
                       "attachments": []
                     }
                   ],
                   "status": "expected"
                 }
               ],
-              "id": "577b505bf659d7424170-039e8e60b8b2d0d2d5a7",
+              "id": "577b505bf659d7424170-8c897411eed14f2a1c89",
               "file": "src/tests/hrmadminPage.test.ts",
-              "line": 18,
+              "line": 38,
               "column": 9
             }
           ]

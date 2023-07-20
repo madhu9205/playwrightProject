@@ -24,5 +24,27 @@ test.describe('AdminView',async () => {
         await hrmAdminPage.searchUser();
         await hrmAdminPage.verifySearchFeature();
     }) 
-    
+    test('3. Job Title', async ({page,hrmLoginPage, hrmHomepage, hrmNavigationbar,hrmAdminPage}) => {
+        await page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+        await hrmLoginPage.loginToHrmApplication(VALID_LOGINS);
+        await hrmHomepage.verifyHomepage();
+        await hrmNavigationbar.loginToHrmAdminview();
+        await hrmNavigationbar.verifyAdminpage();
+        await hrmAdminPage.searchUser();
+        await hrmAdminPage.verifySearchFeature();
+        await hrmAdminPage.gotoajobtittle();
+        await hrmAdminPage.verifyJobTitle();
+    }) 
+    test('4. Pay Grade', async ({page,hrmLoginPage, hrmHomepage, hrmNavigationbar,hrmAdminPage}) => {
+        await page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+        await hrmLoginPage.loginToHrmApplication(VALID_LOGINS);
+       // await hrmHomepage.verifyHomepage();
+        await hrmNavigationbar.loginToHrmAdminview();
+        await hrmNavigationbar.verifyAdminpage();
+        await hrmAdminPage.searchUser();
+        await hrmAdminPage.verifySearchFeature();
+        await hrmAdminPage.clickpaygeadeadd();
+        await hrmAdminPage.addplaygrade2();
+        
+    }) 
 })
