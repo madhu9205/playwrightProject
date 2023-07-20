@@ -9,8 +9,8 @@ export class hrmAdminPage {
     private searchBtn = "//*[@id='app']/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[2]/button[2]"
     private firstname = "//*[@id='app']/div[1]/div[2]/div[2]/div/div[2]/div[3]/div/div[2]/div[1]/div/div[2]/div"
     private userRole = "//*[@id='app']/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div[2]/div/div[2]/div/div/div[1]"
-    private jobdd;
-
+    private  payName= "//*[@id='app']/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div/div/div[2]/input"
+    private paygradeAddBtn = "//*[@id='app']/div[1]/div[2]/div[2]/div/div/form/div[2]/button[2]"
     //////////////
 
     private pickUser;
@@ -82,5 +82,49 @@ export class hrmAdminPage {
         await this.validateJobTitle();
     }
 
-   
+   /* private async checkDBAdmin(){
+
+        await this.page.getByText('Database Administrator').check();
+        await this.page.getByText('Database Administrator').
+        
+  } */ 
+
+   private async clickpaygrades(){
+    await this.page.getByText('Job').click();
+    await this.page.getByRole('menuitem',{name :'Pay Grades'}).click();
+    console.log("PayGrade picked");
+    await this.page.getByRole('button',{name :'Add'}).click();
+    console.log("button clicked");
 }
+
+    async clickpaygeadeadd (){
+
+       await this.clickpaygrades();
+    }
+
+    private async addpaygrade(){
+
+
+        await this.page.waitForSelector(this.payName);
+        await this.page.fill(this.payName, "Admin");
+        console.log("payName filled");
+
+    }   
+
+private async clickAddPayGradeButton() {
+    await Promise.all([
+        await expect(this.page.locator(this.paygradeAddBtn)).toBeVisible(),
+        await this.page.click(this.paygradeAddBtn)
+    ]);
+    console.log("PayGrade Button clicked")
+}
+
+async addplaygrade2 (){
+
+    await this.addpaygrade();
+    await this.clickAddPayGradeButton(); 
+ }
+
+}
+
+   
